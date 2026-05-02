@@ -73,11 +73,8 @@ case $ROS_DISTRO in
     BLOOM=ros
     ROS_DEB="$ROS_DISTRO-"
     if [ -z "$SKIP_ROS_REPOSITORY" ]; then
-      sudo apt update && sudo apt install curl -y
-      export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F'"' '{print $4}')
-      curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.${UBUNTU_CODENAME:-${VERSION_CODENAME}}_all.deb"
-      sudo dpkg -i /tmp/ros2-apt-source.deb
-      sudo apt update
+      curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o "$APT_REPO/ros-archive-keyring.gpg"
+      set -- --extra-repository="deb http://packages.ros.org/ros2/ubuntu $DEB_DISTRO main" --extra-repository-key="$APT_REPO/ros-archive-keyring.gpg" "$@"
     fi
     ;;
 esac
