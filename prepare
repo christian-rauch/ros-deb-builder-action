@@ -1,6 +1,8 @@
 #!/bin/sh
 # SPDX-License-Identifier: BSD-3-Clause
 
+set -eu
+
 # defaults
 . /etc/os-release
 DEB_DISTRO="${DEB_DISTRO:-$VERSION_CODENAME}"
