@@ -6,6 +6,7 @@ set -eu
 # defaults
 . /etc/os-release
 DEB_DISTRO="${DEB_DISTRO:-$VERSION_CODENAME}"
+CONTINUE_PACKAGE_GENERATION=0
 
 while getopts a:cd:hr: OPTCHAR; do
   case "$OPTCHAR" in
